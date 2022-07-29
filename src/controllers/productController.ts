@@ -15,6 +15,12 @@ class ProductController {
     const result = await this.service.create(product);
     return res.status(201).json(result);
   }
+
+  public async getAll(req: Request, res: Response): Promise<Response> {
+    console.log('oi');
+    const result = await this.service.getAll();
+    return res.status(200).json(result);
+  }
 }
 
 export = ProductController;

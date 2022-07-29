@@ -59,6 +59,21 @@ var ProductController = /** @class */ (function () {
             });
         });
     };
+    ProductController.prototype.getAll = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('oi');
+                        return [4 /*yield*/, this.service.getAll()];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, res.status(200).json(result)];
+                }
+            });
+        });
+    };
     return ProductController;
 }());
 module.exports = ProductController;

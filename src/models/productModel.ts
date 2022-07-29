@@ -17,6 +17,14 @@ class ProductModel {
     const newProduct: ProductResponse = { id, name, amount };
     return newProduct;
   };
+
+  getAll = async (): Promise<ProductResponse[]> => {
+    const sql = 'SELECT * FROM Trybesmith.Products';
+    const [result] = await this.connection.query(sql);
+    console.log(result);
+
+    return result as ProductResponse[];
+  };
 }
 
 export default ProductModel;

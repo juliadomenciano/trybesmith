@@ -55,6 +55,20 @@ var ProductModel = /** @class */ (function () {
                 }
             });
         }); };
+        this.getAll = function () { return __awaiter(_this, void 0, void 0, function () {
+            var sql, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        sql = 'SELECT * FROM Trybesmith.Products';
+                        return [4 /*yield*/, this.connection.query(sql)];
+                    case 1:
+                        result = (_a.sent())[0];
+                        console.log(result);
+                        return [2 /*return*/, result];
+                }
+            });
+        }); };
         this.connection = connection;
     }
     return ProductModel;

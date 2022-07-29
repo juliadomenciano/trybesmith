@@ -7,5 +7,6 @@ var express_1 = require("express");
 var productController_1 = __importDefault(require("../controllers/productController"));
 var router = (0, express_1.Router)();
 var productController = new productController_1.default();
+router.get('/', function (req, res) { return productController.getAll(req, res); });
 router.post('/', function (req, res) { return productController.create(req, res); });
 exports.default = router;

@@ -13,6 +13,9 @@ class ProductService {
 
   create = async (product: ProductCreation): Promise<ProductResponse> =>
     this.productModel.create(product);
+
+  getAll = async (): Promise<ProductResponse[]> =>
+    this.productModel.getAll();
 }
 
 export default ProductService;

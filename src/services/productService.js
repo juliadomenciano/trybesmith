@@ -48,6 +48,9 @@ var ProductService = /** @class */ (function () {
         this.create = function (product) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
             return [2 /*return*/, this.productModel.create(product)];
         }); }); };
+        this.getAll = function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/, this.productModel.getAll()];
+        }); }); };
         this.productModel = model;
     }
     return ProductService;
