@@ -8,3 +8,12 @@ export interface ProductResponse {
   name: string;
   amount: string;
 }
+
+export interface UserCreation {
+  username: string;
+  classe: string;
+  level: number;
+  password: string
+}
+
+// export const Token: string;
