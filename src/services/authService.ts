@@ -27,9 +27,9 @@ class AuthService {
     const { error, value } = schema.validate(data);
 
     if (error) {
-      console.log(error);
       const e = new Error(error.details[0].message);
       e.name = 'ValidationError';
+      console.log({ e });
       throw e;
     }
     
@@ -41,6 +41,7 @@ class AuthService {
     if (!getUser || getUser.password !== password) {
       const e = new Error('Username or password invalid');
       e.name = 'Authorization';
+      console.log({ e });
       throw e;
     }
 
