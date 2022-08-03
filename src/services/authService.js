@@ -38,44 +38,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var validations_1 = __importDefault(require("../middlewares/validations"));
-var productService_1 = __importDefault(require("../services/productService"));
-var ProductController = /** @class */ (function () {
-    function ProductController(service) {
-        if (service === void 0) { service = new productService_1.default(); }
+Object.defineProperty(exports, "__esModule", { value: true });
+var joi_1 = __importDefault(require("joi"));
+var jwtService_1 = __importDefault(require("./jwtService"));
+var connection_1 = __importDefault(require("../models/connection"));
+var userModel_1 = __importDefault(require("../models/userModel"));
+var AuthService = /** @class */ (function () {
+    function AuthService(service, model) {
+        var _this = this;
+        if (service === void 0) { service = new jwtService_1.default(); }
+        if (model === void 0) { model = new userModel_1.default(connection_1.default); }
+        this.validateBody = function (data) {
+            var schema = joi_1.default.object({
+                username: joi_1.default.string().required(),
+                password: joi_1.default.string().required(),
+            });
+            var _a = schema.validate(data), error = _a.error, value = _a.value;
+            if (error) {
+                console.log(error);
+                var e = new Error(error.details[0].message);
+                e.name = 'ValidationError';
+                throw e;
+            }
+            return value;
+        };
+        this.login = function (username, password) { return __awaiter(_this, void 0, void 0, function () {
+            var getUser, e, id, token;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userModel.findOne(username)];
+                    case 1:
+                        getUser = (_a.sent())[0];
+                        if (!getUser || getUser.password !== password) {
+                            e = new Error('Username or password invalid');
+                            e.name = 'Authorization';
+                            throw e;
+                        }
+                        id = getUser.id;
+                        token = this.service.createToken({ id: id, username: username });
+                        return [2 /*return*/, token];
+                }
+            });
+        }); };
         this.service = service;
+        this.userModel = model;
     }
-    ProductController.prototype.create = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var product, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        (0, validations_1.default)(req.body);
-                        product = req.body;
-                        return [4 /*yield*/, this.service.create(product)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, res.status(201).json(result)];
-                }
-            });
-        });
-    };
-    ProductController.prototype.getAll = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        (0, validations_1.default)(req.body);
-                        return [4 /*yield*/, this.service.getAll()];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, res.status(200).json(result)];
-                }
-            });
-        });
-    };
-    return ProductController;
+    return AuthService;
 }());
-module.exports = ProductController;
+exports.default = AuthService;

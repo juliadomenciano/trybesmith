@@ -38,37 +38,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var validations_1 = __importDefault(require("../middlewares/validations"));
-var productService_1 = __importDefault(require("../services/productService"));
-var ProductController = /** @class */ (function () {
-    function ProductController(service) {
-        if (service === void 0) { service = new productService_1.default(); }
+var orderService_1 = __importDefault(require("../services/orderService"));
+var OrderController = /** @class */ (function () {
+    function OrderController(service) {
+        if (service === void 0) { service = new orderService_1.default(); }
         this.service = service;
     }
-    ProductController.prototype.create = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var product, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        (0, validations_1.default)(req.body);
-                        product = req.body;
-                        return [4 /*yield*/, this.service.create(product)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, res.status(201).json(result)];
-                }
-            });
-        });
-    };
-    ProductController.prototype.getAll = function (req, res) {
+    OrderController.prototype.getAll = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        (0, validations_1.default)(req.body);
-                        return [4 /*yield*/, this.service.getAll()];
+                    case 0: return [4 /*yield*/, this.service.getAll()];
                     case 1:
                         result = _a.sent();
                         return [2 /*return*/, res.status(200).json(result)];
@@ -76,6 +57,6 @@ var ProductController = /** @class */ (function () {
             });
         });
     };
-    return ProductController;
+    return OrderController;
 }());
-module.exports = ProductController;
+module.exports = OrderController;

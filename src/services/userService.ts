@@ -13,9 +13,6 @@ class UserService {
 
   create = async (user: UserCreation): Promise<string> =>
     this.userModel.create(user);
-
-  // getAll = async (): Promise<ProductResponse[]> =>
-  //   this.userModel.getAll();
 }
 
 export default UserService;

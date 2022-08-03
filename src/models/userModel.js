@@ -54,6 +54,21 @@ var UserModel = /** @class */ (function () {
                 }
             });
         }); };
+        this.findOne = function (username) { return __awaiter(_this, void 0, void 0, function () {
+            var sql, result, rows, user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        sql = "SELECT id, username, password FROM Trybesmith.Users\n    WHERE username = ?";
+                        return [4 /*yield*/, this.connection.query(sql, [username])];
+                    case 1:
+                        result = _a.sent();
+                        rows = result[0];
+                        user = rows;
+                        return [2 /*return*/, user];
+                }
+            });
+        }); };
         this.connection = connection;
     }
     return UserModel;

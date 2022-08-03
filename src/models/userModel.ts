@@ -1,5 +1,5 @@
 import { Pool } from 'mysql2/promise';
-import { UserCreation } from '../interfaces/index';
+import { User, UserCreation } from '../interfaces/index';
 
 class UserModel {
   public connection: Pool;
@@ -20,13 +20,14 @@ class UserModel {
     return token;
   };
 
-  // getAll = async (): Promise<ProductResponse[]> => {
-  //   const sql = 'SELECT * FROM Trybesmith.Products';
-  //   const [result] = await this.connection.query(sql);
-  //   console.log(result);
-
-  //   return result as ProductResponse[];
-  // };
+  findOne = async (username: string): Promise<User[]> => {
+    const sql = `SELECT id, username, password FROM Trybesmith.Users
+    WHERE username = ?`;
+    const result = await this.connection.query(sql, [username]);
+    const [rows] = result;
+    const user = rows as User[];
+    return user;
+  };
 }
 
 export default UserModel;

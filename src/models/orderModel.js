@@ -35,47 +35,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var validations_1 = __importDefault(require("../middlewares/validations"));
-var productService_1 = __importDefault(require("../services/productService"));
-var ProductController = /** @class */ (function () {
-    function ProductController(service) {
-        if (service === void 0) { service = new productService_1.default(); }
-        this.service = service;
+Object.defineProperty(exports, "__esModule", { value: true });
+function formatProductIds(order) {
+    // console.log(order[1].productId);
+    return order.map(function (item) { return ({
+        id: item.id,
+        userId: item.userId,
+        productsIds: (item.productId.split(',').map(function (id) { return Number(id); })),
+    }); });
+}
+var OrderModel = /** @class */ (function () {
+    function OrderModel(connection) {
+        var _this = this;
+        this.getAll = function () { return __awaiter(_this, void 0, void 0, function () {
+            var sql, result, newResult;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        sql = "SELECT o.*, group_concat(p.id)\n    as productId FROM Trybesmith.Products as p\n    RIGHT OUTER JOIN Trybesmith.Orders as o\n    ON p.orderId = o.id\n    GROUP BY o.id\n    ORDER bY o.userId";
+                        return [4 /*yield*/, this.connection.query(sql)];
+                    case 1:
+                        result = (_a.sent())[0];
+                        console.log(result);
+                        newResult = formatProductIds(result);
+                        console.log(newResult);
+                        return [2 /*return*/, newResult];
+                }
+            });
+        }); };
+        this.connection = connection;
     }
-    ProductController.prototype.create = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var product, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        (0, validations_1.default)(req.body);
-                        product = req.body;
-                        return [4 /*yield*/, this.service.create(product)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, res.status(201).json(result)];
-                }
-            });
-        });
-    };
-    ProductController.prototype.getAll = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        (0, validations_1.default)(req.body);
-                        return [4 /*yield*/, this.service.getAll()];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, res.status(200).json(result)];
-                }
-            });
-        });
-    };
-    return ProductController;
+    return OrderModel;
 }());
-module.exports = ProductController;
+exports.default = OrderModel;
