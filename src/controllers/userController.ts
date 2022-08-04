@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { UserCreation } from '../interfaces';
+import { validateUser } from '../middlewares/validations';
 import UserService from '../services/userService';
 
 class UserController {
@@ -11,6 +12,7 @@ class UserController {
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
+    validateUser(req.body);
     const user = req.body as UserCreation;
     const result = await this.service.create(user);
     return res.status(201).json({ token: result });

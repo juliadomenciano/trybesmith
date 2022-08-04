@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { ProductCreation } from '../interfaces';
-import validateProduct from '../middlewares/validations';
+import { validateProduct } from '../middlewares/validations';
 import ProductService from '../services/productService';
 
 class ProductController {
