@@ -53,7 +53,7 @@ export function validateToken(authorization: string) {
     const payload = jwt.verify(authorization, JWT_SECRET);
     return payload;
   } catch (e) {
-    const error = new Error('Expired or invalid token');
+    const error = new Error('Invalid token');
     error.name = 'Authorization';
     throw error; 
   }

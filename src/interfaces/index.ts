@@ -47,3 +47,22 @@ export interface Err {
   name: string;
   message: string;
 }
+
+export interface OrdersCreation {
+  productsIds: number[];
+}
+
+export interface Authorization {
+  authorization: string
+}
+
+export interface OrderResponse {
+  userId: number,
+  productsIds: number[],
+}
+
+export interface Payload {
+  data:{ id: number;
+    username: string,
+  }
+}
