@@ -13,6 +13,7 @@
   * Express.js;
   * Express Async Errors;
   * MySQL;
+  * Jwt;
   * Joi;
   * DotEnv;
   * Docker.
@@ -48,6 +49,7 @@
   * Express.js;
   * Express Async Errors;
   * MySQL;
+  * Jwt;
   * Joi;
   * DotEnv;
   * Docker.
